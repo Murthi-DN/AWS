@@ -1,0 +1,253 @@
+
+------------------------------------------------
+
+Regions: R
+Availability Zones: Ra, Rb, Rc 
+
+------------------------------------------------
+
+Global Service:
+IAM
+Users & Group
+
+https://340573081835.signin.aws.amazon.com/console
+aws-11
+
+------------------------------------------------
+
+EC2 (Elastic Cloud Computing)
+BootStrap - To exec script only when VM starts (User Data Script)
+
+Public IP changes after Stoping & Starting VM
+
+7 Types of EC2 
+	General Purpose
+	Compute Optimized
+	Memory Optimized
+	Storage Optimized
+
+
+SSH - Linux/Mac/Win 10
+PuTTY - < Win 10 & > Win 10
+
+ssh -i file.pem ec2-user@publicIP
+chmod 0400 file.pem
+
+
+Puchasing Options:
+* On Demand
+* Reserved
+* Savings Plan
+* Spot Instances
+* Dedicated Hosts
+* Capacity Reservation
+
+------------------------------------------------
+
+EC2 Storage
+
+EBS:
+- Elastic Block Storage: (volume) is a Network Drive to attach instances while run
+- Persist Data even after Termination
+- Can be assigned to only one EC2 (only in iO1 (CCP Examm) but in possible in iO2 (above CCP Exam))
+- Like Network USB
+
+------------------------------------------------
+
+AMI - Amazon Machine Image
+- Customized Images
+
+------------------------------------------------
+
+EC2 Image Builder
+- Used to automate creation of VMs
+
+------------------------------------------------
+
+EFS - Elastic File System (NFS)
+- Volume Mount
+- Can be attached to Multiple VMs
+- Works only with Linuc EC2
+
+EBS vs EFS
+- EBS Zone Specific - If need in Diff Zone, take Snapshot and restore in New Zone with New EBS
+- But in EFS - Can be attached same EFS to Multiple Zone
+
+EFS Infrequent Access (IA)
+- Data will be moved to IA if EFS not accessed in last 60 ..etc days - Cost Optimization
+
+------------------------------------------------
+
+FSx - 3rd Party High Performance Storage
+- Native Microsoft Windows file system
+
+------------------------------------------------
+
+Scalability (Horizonatal / Vertical)
+
+High Availability (VMs in Multiple Zones)
+
+Elasticity
+	- Once system is scalable, then there will be Auto Scale
+
+Agility
+	- End To End Development Automation
+
+------------------------------------------------
+
+ELB - Elastic Load Balancer
+
+4 Types:
+	
+1. Application LB
+	- HTTP/HTTPS
+	- Layer 7
+
+2. Network LB
+	- TCP/UDP
+	- Ultra-High Performance
+	- Layer 4
+
+3. Gateway LB
+	- Layer 3
+	- Security LB
+
+4. Classic LB
+	- Retired in 2023
+	- Layer 4 & 7
+
+------------------------------------------------
+
+Auto Scaling
+
+* Manual Scaling
+* Dynamic Scaling
+* Predictive Scaling
+
+------------------------------------------------
+
+VPC - Virtual Private Cloud
+
+IPv4 (Public, Private)
+Elastic IP - ES Public IP won't be changed, but need to pay
+
+IPv6 - No Private IP, Only Public IP
+
+------------------------------------------------
+
+VPC
+- A private Network to deploy resources
+- Region Based
+
+Subnet:
+- Subnet is inside VPC
+- Availability Zone based
+- Public Subnet: Can be accessed by Internet
+- Private Subnet: Can't be accessed by Internet
+
+To access Internet & communicate with Subnets, we use Route Tables
+
+------------------------------------------------
+
+Internet Gateways:
+* To give Internet access to Public Subnet
+
+NAT Gateways
+* To give Internet access to Private Subnet (for updates/download files...etc)
+* Will remain in Private
+
+
+Private Subnet -> NAT inside Public Subnet -> Internet Gateway
+
+------------------------------------------------
+
+NACL - Network Access Control List
+
+* Firewall
+* Subnet Level
+* Have Allow & Deny Rules
+* Only IPs
+
+------------------------------------------------
+
+Security Groups
+
+* Network Interface/ Instance (VM) Level
+* Have only Allow Rule 
+* Includes IP & Other Security Groups
+
+------------------------------------------------
+
+VPC Peering
+
+* To connect 2 VPC Privately
+
+------------------------------------------------
+
+VPC Endpoints:
+
+Usually when a VM tries to connect to other services in AWS, uses Internet, though that service is in same AWS, why it should go through WWW?
+
+
+VPC Endpoint Gateway:
+* A Private Network instead of Public Network
+* Secure
+* To connect S3, Dynamo DB
+
+VPC Endpoint Interface:
+* Same but to any other services in AWS
+
+------------------------------------------------
+
+AWS Private Link
+
+* When only one service in a VPC wants to talk to another VPC, create Private Link instead of VPC Peering
+* From my side, i create Elastic Network Interface
+* From their VPC, they create Network Load Balancer
+* By combing these both, create Private Link
+
+So they talk to each other without Internet Privately
+
+------------------------------------------------
+
+When a OnPrem needs to connect to AWS, have 2 Options:
+
+1. Site To Site VPN:
+
+* OnPrem -> WWW -> Site-To-Site VPN -> WWW -> VPC (AWS)
+* Goes thorugh Internet, and Encrypted
+
+* OnPrem Should have Customer Gateway (CGW)
+* AWS Should have Virtual Private Gateway (VGW)
+* Above 2 will be connected to Site-To-Site VPN
+
+
+2. Direct Connect
+
+* With Physical connection
+* Private, Secure
+* OnPrem -> Private NW -> Direct Connect -> Private NW -> VPC (AWS)
+
+
+------------------------------------------------
+
+AWS Client VPN
+* To connect AWS Privately with Private IP, just as if you're in Private VPC
+* Goes through Internet, Encrypted
+
+------------------------------------------------
+
+Transit Gateway:
+
+* When above all types Network things done, Network Architecture will be complex to maintain
+* So we use Transit Gateway
+* All network things will be connected/goes through to this Transit Gateway
+* Midle ware person
+
+
+
+
+
+
+
+
